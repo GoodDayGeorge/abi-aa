@@ -1,14 +1,28 @@
-.. include:: abi-include.txt
+..
+   Copyright (c) 2011-2020, Arm Limited and its affiliates.  All rights reserved.
+   CC-BY-SA-4.0 AND Apache-Patent-License
+   See LICENSE file for details
 
-*********************************************************
-Exception Handling ABI for the Arm\ :sup:`®` Architecture
-*********************************************************
+Exception Handling ABI for the Arm® Architecture
+************************************************
 
-Document number: IHI 0038C, current through ABI release |release|
+.. class:: version
 
-Date of Issue: |releasedate|
+2019Q4
 
-================================================================================
+.. class:: issued
+
+Date of Issue: 30\ :sup:`th` January 2020
+
+.. class:: logo
+
+.. image:: ../Arm_logo_blue_150MN.png
+
+.. section-numbering::
+
+.. raw:: pdf
+
+   PageBreak oneColumn
 
 Preamble
 ========
@@ -23,14 +37,103 @@ Keywords
 
 Stack unwinding, exception handling
 
-.. include:: find-latest-revision.txt
+Latest release and defects report
+---------------------------------
 
-.. include:: legal-preamble.txt
+Please check `Application Binary Interface for the Arm® Architecture
+<https://github.com/ARM-software/abi-aa>`_ for the latest
+release of this document.
 
-Contents
---------
+Please report defects in this specification to the `issue tracker page
+on GitHub
+<https://github.com/ARM-software/abi-aa/issues>`_.
+
+.. raw:: pdf
+
+   PageBreak
+
+Licence
+-------
+
+This work is licensed under the Creative Commons
+Attribution-ShareAlike 4.0 International License. To view a copy of
+this license, visit http://creativecommons.org/licenses/by-sa/4.0/ or
+send a letter to Creative Commons, PO Box 1866, Mountain View, CA
+94042, USA.
+
+Grant of Patent License. Subject to the terms and conditions of this
+license (both the Public License and this Patent License), each
+Licensor hereby grants to You a perpetual, worldwide, non-exclusive,
+no-charge, royalty-free, irrevocable (except as stated in this
+section) patent license to make, have made, use, offer to sell, sell,
+import, and otherwise transfer the Licensed Material, where such
+license applies only to those patent claims licensable by such
+Licensor that are necessarily infringed by their contribution(s) alone
+or by combination of their contribution(s) with the Licensed Material
+to which such contribution(s) was submitted. If You institute patent
+litigation against any entity (including a cross-claim or counterclaim
+in a lawsuit) alleging that the Licensed Material or a contribution
+incorporated within the Licensed Material constitutes direct or
+contributory patent infringement, then any licenses granted to You
+under this license for that Licensed Material shall terminate as of
+the date such litigation is filed.
+
+About the license
+-----------------
+
+As identified more fully in the Licence_ section, this project
+is licensed under CC-BY-SA-4.0 along with an additional patent
+license.  The language in the additional patent license is largely
+identical to that in Apache-2.0 (specifically, Section 3 of Apache-2.0
+as reflected at https://www.apache.org/licenses/LICENSE-2.0) with two
+exceptions.
+
+First, several changes were made related to the defined terms so as to
+reflect the fact that such defined terms need to align with the
+terminology in CC-BY-SA-4.0 rather than Apache-2.0 (e.g., changing
+“Work” to “Licensed Material”).
+
+Second, the defensive termination clause was changed such that the
+scope of defensive termination applies to “any licenses granted to
+You” (rather than “any patent licenses granted to You”).  This change
+is intended to help maintain a healthy ecosystem by providing
+additional protection to the community against patent litigation
+claims.
+
+Contributions
+-------------
+
+Contributions to this project are licensed under an inbound=outbound
+model such that any such contributions are licensed by the contributor
+under the same terms as those in the `Licence`_ section.
+
+Trademark notice
+----------------
+
+The text of and illustrations in this document are licensed by Arm
+under a Creative Commons Attribution–Share Alike 4.0 International
+license ("CC-BY-SA-4.0”), with an additional clause on patents.
+The Arm trademarks featured here are registered trademarks or
+trademarks of Arm Limited (or its subsidiaries) in the US and/or
+elsewhere. All rights reserved. Please visit
+https://www.arm.com/company/policies/trademarks for more information
+about Arm’s trademarks.
+
+Copyright
+---------
+
+Copyright (c) 2018-2020, Arm Limited and its affiliates.  All rights reserved.
+
+.. raw:: pdf
+
+   PageBreak
 
 .. contents::
+   :depth: 3
+
+.. raw:: pdf
+
+   PageBreak
 
 About this document
 ===================
@@ -38,10 +141,30 @@ About this document
 Change control
 --------------
 
-Current status and anticipated changes 
+Current status and anticipated changes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. include:: support-levels.txt
+The following support level definitions are used by the Arm ABI specifications:
+
+**Release**
+   Arm considers this specification to have enough implementations, which have
+   received sufficient testing, to verify that it is correct. The details of these
+   criteria are dependent on the scale and complexity of the change over previous
+   versions: small, simple changes might only require one implementation, but more
+   complex changes require multiple independent implementations, which have been
+   rigorously tested for cross-compatibility. Arm anticipates that future changes
+   to this specification will be limited to typographical corrections,
+   clarifications and compatible extensions.
+
+**Beta**
+   Arm considers this specification to be complete, but existing
+   implementations do not meet the requirements for confidence in its release
+   quality. Arm may need to make incompatible changes if issues emerge from its
+   implementation.
+
+**Alpha**
+   The content of this specification is a draft, and Arm considers the
+   likelihood of future incompatible changes to be significant.
 
 All content in this document is at the **Release** quality level.
 
@@ -1629,8 +1752,8 @@ under other circumstances.
 
 .. _ehabi32-section7-7:
 
-Implications for implementations
---------------------------------
+unwinding library implications for implementations
+--------------------------------------------------
 
 Before the first propagation of an ECO, the semantics library which
 allocated the object is required to initialize the UCB
@@ -2102,8 +2225,8 @@ Returns the type of the exception currently being handled, or NULL if
 there are no handled exceptions or a foreign (non-C++) exception object
 is involved.
 
-Implications for implementations
---------------------------------
+C++ exception handling implications for implementations
+-------------------------------------------------------
 
 Expected implementations of \_\_cxa\_allocate\_exception and \_\_cxa\_throw 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2309,8 +2432,8 @@ The choice can be made on a per-function basis.
 
 .. _ehabi32-section9-2:
 
-Exception-handling table entries
---------------------------------
+Personality routine exception-handling table entries
+----------------------------------------------------
 
 An exception-handling table entry is a sequence of words and halfwords,
 beginning on a word boundary.
@@ -2662,8 +2785,8 @@ and phase 2.
 In summary, the Arm personality routines always pass a pointer to the
 UCB in r0 when entering a handler or a handler landing pad.
 
-Implications for implementations
---------------------------------
+Arm personality routines implications for implementations
+---------------------------------------------------------
 
 The Arm personality routines call \_\_cxa\_begin\_cleanup (see :ref:`ehabi32-section8-4`)
 before entering a cleanup landing pad, so the landing pad itself should
@@ -2750,7 +2873,7 @@ terminate() is called.
 
 15.5.1 The terminate() function [except.terminate]
 
-1. In the following situations exception handling must be abandoned for less subtle error handling techniques:
+In the following situations exception handling must be abandoned for less subtle error handling techniques:
 
   - When the exception handling mechanism, after completing evaluation of
     the expression to be thrown but before the exception is caught
@@ -2780,7 +2903,7 @@ terminate() is called.
   - When the implementation’s default unexpected\_handler is called
     (18.6.2.2)
 
-2. In such cases, void terminate() is called (18.6.3). In the situation
+In such cases, void terminate() is called (18.6.3). In the situation
    where no matching handler is found, it is implementation-defined
    whether or not the stack is unwound before terminate() is called.
    In all other situations, the stack shall not be unwound before
@@ -2873,9 +2996,9 @@ definition:
      the matching handler or entering unexpected() due to the throw;
      or after entering terminate() for any reason other than an
      explicit call to terminate().
-     
+
      .. note::
-     
+
       This includes stack unwinding (15.2).
 
   2. Notes: When uncaught\_exception() is true, throwing an exception can
@@ -2891,17 +3014,17 @@ involvement of terminate():
    until after the implementation calls terminate() [and is false in
    terminate()].
 
-EDG accept interpretation 1, and after reading it a lot of times we
-think we also prefer it to 2.
+   EDG accept interpretation 1, and after reading it a lot of times we
+   think we also prefer it to 2.
 
-But 15.1/7 says an exception is *caught* once terminate() is called by
-the implementation, so we are forced to either reject interpretation 1
-or to assume that *caught* and uncaught\_exception() cover related but
-different concepts.
+   But 15.1/7 says an exception is *caught* once terminate() is called by
+   the implementation, so we are forced to either reject interpretation 1
+   or to assume that *caught* and uncaught\_exception() cover related but
+   different concepts.
 
-Now as a further complication we have to consider DR208. Actually this
-turns out to clarify some of the ambiguities. The DR makes changes as
-follows (here we ignore parts of the DR not relevant to this issue):
+   Now as a further complication we have to consider DR208. Actually this
+   turns out to clarify some of the ambiguities. The DR makes changes as
+   follows (here we ignore parts of the DR not relevant to this issue):
 
 3. Delete 15.1 except.throw paragraph 7.
 
@@ -2909,7 +3032,7 @@ follows (here we ignore parts of the DR not relevant to this issue):
 
     An exception is considered caught when a handler for that exception
     becomes active (15.3 except.handle).
-  
+
     .. note::
       An exception can have active handlers and still be considered uncaught if it is rethrown.
 
